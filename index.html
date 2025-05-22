@@ -2,43 +2,43 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maíz Solo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maíz Solo - Tienda de Maíz</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* Panel de bienvenida */
     #cover-panel {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       background-color: #0D3D0C;
       color: white;
+      font-size: 3rem;
+      font-weight: 900;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 2.5rem;
-      font-weight: bold;
-      z-index: 1000;
       cursor: pointer;
-      opacity: 1;
+      z-index: 1000;
       transition: opacity 1s ease-out;
     }
     #cover-panel.hidden {
       opacity: 0;
       pointer-events: none;
+      visibility: hidden;
     }
-    .hidden {
-      display: none;
-    }
+
+    /* Navegación pestañas */
     .tab-button {
-      padding: 10px;
+      padding: 10px 15px;
       cursor: pointer;
-      text-decoration: none;
-      color: white;
-      background-color: #0D3D0C;
-      border: 2px solid transparent;
       border-radius: 8px;
+      border: 2px solid transparent;
+      background-color: #0D3D0C;
+      color: white;
+      transition: background-color 0.3s, border-color 0.3s;
+      user-select: none;
+      white-space: nowrap;
     }
     .tab-button:hover {
       background-color: #2b6e34;
@@ -47,129 +47,141 @@
       background-color: #2b6e34;
       border-color: white;
     }
+
+    /* Cards animación hover */
     .card:hover {
       transform: scale(1.05);
       transition: transform 0.3s ease;
     }
+
+    /* Ocultar secciones */
+    .seccion {
+      display: none;
+    }
+    .seccion.active {
+      display: block;
+    }
+
+    /* Estilo carrito */
+    #cart {
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      width: 300px;
+      max-height: 80vh;
+      overflow-y: auto;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.25);
+      border-radius: 8px;
+      padding: 10px;
+      z-index: 1100;
+      display: none;
+    }
+    #cart h3 {
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #0D3D0C;
+    }
+    #cart ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 10px;
+    }
+    #cart li {
+      margin-bottom: 8px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+    #cart li span.qty {
+      font-weight: 700;
+      margin-left: 5px;
+    }
+    #cart button#close-cart {
+      width: 100%;
+      background-color: #0D3D0C;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #cart button#close-cart:hover {
+      background-color: #2b6e34;
+    }
   </style>
 </head>
-<body class="bg-[#f0fff4] font-sans text-gray-900 flex flex-col min-h-screen">
-  <!-- Pantalla inicial -->
-  <div id="cover-panel" onclick="ocultarPanel()">
-    Maíz Solo
-  </div>
+<body class="bg-[#f0fff4] font-sans text-gray-900">
 
-  <!-- Header -->
-  <header class="bg-[#0D3D0C] text-white shadow-md py-4 sticky top-0 z-40">
-    <div class="container mx-auto flex justify-between items-center px-6">
-      <h1 class="text-3xl font-extrabold tracking-wide">Maíz Solo</h1>
-      <nav class="space-x-4">
-        <a href="#" class="tab-button active" onclick="mostrarSeccion('productos', this)">Productos</a>
-        <a href="#" class="tab-button" onclick="mostrarSeccion('reseñas', this)">Reseñas</a>
-        <a href="#" class="tab-button" onclick="mostrarSeccion('blog', this)">Blog</a>
-        <a href="#" class="tab-button" onclick="mostrarSeccion('ofertas', this)">Ofertas</a>
-        <a href="#" class="tab-button" onclick="mostrarSeccion('cobertura', this)">Cobertura</a>
-        <a href="#" class="tab-button" onclick="mostrarSeccion('infraestructura', this)">Infraestructura</a>
-        <a href="#" class="tab-button" onclick="mostrarSeccion('logistica', this)">Logística</a>
+  <!-- Panel de bienvenida -->
+  <div id="cover-panel" onclick="ocultarPanel()">Maíz Solo</div>
+
+  <!-- Header y navegación -->
+  <header class="bg-[#0D3D0C] text-white shadow-md py-4 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center px-6 flex-wrap gap-2">
+      <h1 class="text-3xl font-extrabold tracking-wide select-none">Maíz Solo</h1>
+      <nav class="flex flex-wrap gap-2 overflow-x-auto max-w-[70vw]">
+        <!-- Aquí se cargarán las pestañas -->
       </nav>
-      <button id="cart-button" onclick="abrirCarrito()" class="relative bg-white text-[#0D3D0C] px-4 py-2 rounded-full hover:bg-gray-100 transition">
+      <button id="cart-button" class="relative bg-white text-[#0D3D0C] px-4 py-2 rounded-full hover:bg-gray-100 transition select-none" aria-label="Mostrar carrito">
         🛒
         <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
       </button>
     </div>
   </header>
 
-  <!-- Barra de búsqueda -->
-  <div class="mb-6 container mx-auto text-center z-10">
-    <input type="text" placeholder="Buscar productos..." class="px-4 py-2 border rounded" id="search">
-    <button onclick="buscarProducto()" class="bg-[#0D3D0C] text-white px-4 py-2 rounded">Buscar</button>
+  <!-- Buscador -->
+  <div class="mb-6 container mx-auto text-center px-6">
+    <input type="text" id="search" placeholder="Buscar productos..." class="px-4 py-2 border rounded max-w-md w-full" aria-label="Buscar productos" />
   </div>
 
-  <!-- Pantalla de estado -->
-  <div class="bg-yellow-300 text-black text-center py-2 z-10">
+  <!-- Aviso mejora -->
+  <div class="bg-yellow-300 text-black text-center py-2 mb-8">
     <p>Actualmente estamos realizando mejoras en el sitio. ¡Gracias por tu paciencia!</p>
   </div>
 
-  <!-- Panel del carrito -->
-  <div id="cart-panel" class="fixed top-0 right-0 w-full md:w-96 h-full bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 p-6 overflow-y-auto">
-    <button onclick="cerrarCarrito()" class="text-red-600 text-xl float-right">✖</button>
-    <h2 class="text-2xl font-bold mb-4">Tu carrito</h2>
-    <div id="cart-items" class="space-y-4">
-      <p id="empty-cart">El carrito está vacío.</p>
-    </div>
-  </div>
+  <main class="px-6 container mx-auto max-w-7xl mb-20">
 
-  <!-- Contenido principal -->
-  <main class="px-6 py-10 flex-grow">
-    <section id="productos" class="seccion">
+    <!-- Secciones -->
+    <section id="productos" class="seccion active">
       <h2 class="text-3xl font-bold mb-6">Productos</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white shadow rounded p-4 card">
-          <h3 class="font-bold text-xl mb-2">Tortillas de Maíz</h3>
-          <p>Hechas con maíz 100% natural.</p>
-          <select class="mt-2 border p-1 rounded" onchange="agregarProducto('Tortillas de Maíz', this.value)">
-            <option value="">Cantidad</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="Otro">Otra cantidad</option>
-          </select>
-        </div>
+      <div id="productos-list" class="grid md:grid-cols-3 gap-6">
+        <!-- Productos insertados con JS -->
       </div>
     </section>
-    
-    <!-- Reseñas -->
-    <section id="reseñas" class="seccion hidden">
+
+    <section id="reseñas" class="seccion">
       <h2 class="text-3xl font-bold mb-6">Reseñas</h2>
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white p-4 rounded shadow-lg">
-          <p class="text-lg font-semibold">"Excelente producto, muy frescas!"</p>
-          <p>- Ana</p>
-        </div>
-        <div class="bg-white p-4 rounded shadow-lg">
-          <p class="text-lg font-semibold">"Servicio de entrega rápido y confiable."</p>
-          <p>- Juan</p>
-        </div>
-        <div class="bg-white p-4 rounded shadow-lg">
-          <p class="text-lg font-semibold">"Muy buen sabor y calidad. Recomendado!"</p>
-          <p>- Carlos</p>
-        </div>
+        <div class="bg-white p-4 rounded shadow-lg"><p class="text-lg font-semibold">"Excelente producto, muy frescas!"</p><p>- Ana</p></div>
+        <div class="bg-white p-4 rounded shadow-lg"><p class="text-lg font-semibold">"Servicio de entrega rápido y confiable."</p><p>- Juan</p></div>
+        <div class="bg-white p-4 rounded shadow-lg"><p class="text-lg font-semibold">"Muy buen sabor y calidad. Recomendado!"</p><p>- Carlos</p></div>
       </div>
     </section>
 
-    <!-- Blog -->
-    <section id="blog" class="seccion hidden">
+    <section id="blog" class="seccion">
       <h2 class="text-3xl font-bold mb-6">Blog</h2>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="bg-white p-4 rounded shadow">
           <h3 class="text-xl font-semibold">El maíz y la tradición</h3>
           <p>Conoce cómo el maíz forma parte esencial de nuestra cultura alimentaria.</p>
         </div>
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="text-xl font-semibold">Recetas con historia</h3>
-          <p>Descubre platos tradicionales que han pasado de generación en generación.</p>
-        </div>
       </div>
     </section>
 
-    <!-- Ofertas -->
-    <section id="ofertas" class="seccion hidden">
+    <section id="ofertas" class="seccion">
       <h2 class="text-3xl font-bold mb-6">Ofertas</h2>
       <div class="grid md:grid-cols-3 gap-6">
         <div class="bg-white p-4 rounded shadow">
           <h3 class="font-semibold text-lg">3x2 en Totopos</h3>
           <p>Solo por esta semana, no te lo pierdas.</p>
         </div>
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-lg">Descuento del 20%</h3>
-          <p>En pedidos mayores a $500 MXN.</p>
-        </div>
       </div>
     </section>
 
-    <!-- Cobertura -->
-    <section id="cobertura" class="seccion hidden">
+    <section id="cobertura" class="seccion">
       <h2 class="text-3xl font-bold mb-6">Cobertura</h2>
       <div class="grid md:grid-cols-3 gap-6">
         <div class="bg-white p-4 rounded shadow">
@@ -183,82 +195,323 @@
       </div>
     </section>
 
-    <!-- Infraestructura -->
-    <section id="infraestructura" class="seccion hidden">
+    <section id="infraestructura" class="seccion">
       <h2 class="text-3xl font-bold mb-6">Infraestructura</h2>
       <div class="bg-white p-6 rounded shadow">
         <p>Contamos con plantas modernas equipadas con tecnología de punta para garantizar productos frescos y de alta calidad.</p>
       </div>
     </section>
 
-    <!-- Logística -->
-    <section id="logistica" class="seccion hidden">
+    <section id="logistica" class="seccion">
       <h2 class="text-3xl font-bold mb-6">Logística</h2>
       <div class="bg-white p-6 rounded shadow">
         <p>Con una red logística nacional e internacional, aseguramos entregas rápidas y eficientes. Trabajamos con socios confiables para mantener nuestra promesa de calidad.</p>
       </div>
     </section>
 
-    <!-- Suscripción -->
-    <section id="suscripcion" class="bg-[#0D3D0C] text-white py-10 mt-10">
-      <div class="container mx-auto text-center">
-        <h2 class="text-2xl mb-4">¡Suscríbete a nuestro boletín!</h2>
-        <p>Recibe las últimas noticias y ofertas directamente en tu correo.</p>
-        <form action="#" method="POST" class="mt-6">
-          <input type="email" name="email" placeholder="Tu correo electrónico" class="px-4 py-2 w-2/3 border rounded" required />
-          <button type="submit" class="bg-yellow-400 text-black px-4 py-2 ml-4 rounded">Suscribirse</button>
-        </form>
+    <section id="mision" class="seccion">
+      <h2 class="text-3xl font-bold mb-6">Misión, Visión y Valores</h2>
+      <div class="bg-white p-6 rounded shadow">
+        <p><strong>Misión:</strong> Ofrecer maíz de calidad que fortalezca la alimentación y cultura local.</p>
+        <p><strong>Visión:</strong> Ser líderes en producción sostenible de maíz.</p>
+        <p><strong>Valores:</strong> Honestidad, calidad, compromiso y respeto.</p>
       </div>
     </section>
+
+    <!-- NUEVA SECCIÓN: Diagrama de Producción -->
+    <section id="diagrama" class="seccion hidden">
+      <h2 class="text-3xl font-bold mb-6">Diagrama de Producción</h2>
+      <div class="bg-white p-6 rounded shadow max-w-4xl mx-auto text-left space-y-6">
+        <div>
+          <h3 class="text-xl font-semibold mb-2">1. Recepción de Materia Prima</h3>
+          <ul class="list-disc list-inside">
+            <li>Maíz</li>
+            <li>Agua</li>
+            <li>Sal</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-2">2. Preparación de la Masa</h3>
+          <ul class="list-disc list-inside">
+            <li>Cocción del maíz (Nixtamalización)</li>
+            <li>Molienda del maíz</li>
+            <li>Mezcla con agua y sal</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-2">3. Formado de Tortillas</h3>
+          <ul class="list-disc list-inside">
+            <li>División de la masa en bolas</li>
+            <li>Aplanado de las bolas en forma de tortilla</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-2">4. Cocción de Tortillas</h3>
+          <ul class="list-disc list-inside">
+            <li>Cocción en comal</li>
+            <li>Enfriamiento</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-2">5. Producción de Totopos</h3>
+          <ul class="list-disc list-inside">
+            <li>Corte de tortillas en triángulos</li>
+            <li>Freír o hornear los triángulos</li>
+            <li>Enfriamiento</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-2">6. Producción de Tostadas</h3>
+          <ul class="list-disc list-inside">
+            <li>Freír tortillas enteras</li>
+            <li>Enfriamiento</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-2">7. Empaque</h3>
+          <ul class="list-disc list-inside">
+            <li>Empacado de tortillas, totopos y tostadas</li>
+            <li>Etiquetado</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-2">8. Distribución</h3>
+          <ul class="list-disc list-inside">
+            <li>Envío a puntos de venta</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="areas" class="seccion">
+      <h2 class="text-3xl font-bold mb-6">Áreas Funcionales</h2>
+      <div class="bg-white p-6 rounded shadow">
+        <p>Nuestras áreas funcionales incluyen producción, calidad, logística y ventas, todo coordinado para un servicio eficiente.</p>
+      </div>
+    </section>
+
+    <section id="contactanos" class="seccion">
+      <h2 class="text-3xl font-bold mb-6">Contáctanos</h2>
+      <form id="contact-form" class="bg-white p-6 rounded shadow max-w-md mx-auto" onsubmit="enviarFormulario(event)">
+        <label for="nombre" class="block font-semibold mb-1">Nombre</label>
+        <input type="text" id="nombre" name="nombre" required class="w-full border px-3 py-2 rounded mb-4" />
+        <label for="email" class="block font-semibold mb-1">Email</label>
+        <input type="email" id="email" name="email" required class="w-full border px-3 py-2 rounded mb-4" />
+        <label for="mensaje" class="block font-semibold mb-1">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required class="w-full border px-3 py-2 rounded mb-4"></textarea>
+        <button type="submit" class="bg-[#0D3D0C] text-white px-4 py-2 rounded hover:bg-[#2b6e34] transition">Enviar</button>
+      </form>
+    </section>
+
+    <section id="quienes" class="seccion">
+      <h2 class="text-3xl font-bold mb-6">Quiénes somos</h2>
+      <div class="bg-white p-6 rounded shadow max-w-xl mx-auto">
+        <p>Somos una empresa dedicada a la producción y distribución de maíz con compromiso con la calidad y la cultura mexicana.</p>
+      </div>
+    </section>
+
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-[#0D3D0C] text-white py-6">
-    <div class="container mx-auto text-center">
-      <p>&copy; 2025 Maíz Solo. Todos los derechos reservados.</p>
-      <div class="mt-4">
-        <a href="#" class="mx-2">Facebook</a>
-        <a href="#" class="mx-2">Instagram</a>
-        <a href="#" class="mx-2">Twitter</a>
-      </div>
-    </div>
-  </footer>
+  <!-- Carrito -->
+  <div id="cart" aria-label="Carrito de compras">
+    <h3>Carrito</h3>
+    <ul id="cart-items"></ul>
+    <p id="cart-total" class="font-bold text-right"></p>
+    <button id="close-cart" aria-label="Cerrar carrito">Cerrar</button>
+  </div>
 
   <script>
+    // Variables globales
+    const tabs = [
+      { id: 'productos', label: 'Productos' },
+      { id: 'reseñas', label: 'Reseñas' },
+      { id: 'blog', label: 'Blog' },
+      { id: 'ofertas', label: 'Ofertas' },
+      { id: 'cobertura', label: 'Cobertura' },
+      { id: 'infraestructura', label: 'Infraestructura' },
+      { id: 'logistica', label: 'Logística' },
+      { id: 'mision', label: 'Misión, Visión y Valores' },
+      { id: 'diagrama', label: 'Diagrama de Producción' },
+      { id: 'areas', label: 'Áreas Funcionales' },
+      { id: 'contactanos', label: 'Contáctanos' },
+      { id: 'quienes', label: 'Quiénes somos' }
+    ];
+
+    const productosData = [
+      { id: 1, nombre: 'Tortillas de Maíz', descripcion: 'Hechas con maíz 100% natural.', precio: 20 },
+      { id: 2, nombre: 'Totopos', descripcion: 'Crujientes y deliciosos.', precio: 15 },
+      { id: 3, nombre: 'Harina de Maíz', descripcion: 'Ideal para tamales y más.', precio: 30 },
+      { id: 4, nombre: 'Masa para Tamales', descripcion: 'Listo para preparar tamales.', precio: 25 }
+    ];
+
+    let carrito = {};
+
+    // Carga el carrito desde localStorage si existe
+    function cargarCarrito() {
+      const saved = localStorage.getItem('maizSoloCarrito');
+      if (saved) {
+        carrito = JSON.parse(saved);
+      }
+    }
+
+    // Guarda el carrito en localStorage
+    function guardarCarrito() {
+      localStorage.setItem('maizSoloCarrito', JSON.stringify(carrito));
+    }
+
+    // Actualiza el contador visible del carrito
+    function actualizarContador() {
+      const count = Object.values(carrito).reduce((acc, val) => acc + val, 0);
+      document.getElementById('cart-count').textContent = count;
+    }
+
+    // Renderiza la lista de productos en la sección productos
+    function renderProductos(lista) {
+      const contenedor = document.getElementById('productos-list');
+      contenedor.innerHTML = '';
+      if (lista.length === 0) {
+        contenedor.innerHTML = '<p>No se encontraron productos.</p>';
+        return;
+      }
+      lista.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'bg-white shadow rounded p-4 card flex flex-col justify-between';
+        div.innerHTML = `
+          <h3 class="font-bold text-xl mb-2">${p.nombre}</h3>
+          <p>${p.descripcion}</p>
+          <p class="mt-2 font-semibold">$${p.precio} MXN</p>
+          <div class="mt-3">
+            <label for="qty-${p.id}" class="sr-only">Cantidad</label>
+            <select id="qty-${p.id}" aria-label="Cantidad de ${p.nombre}" class="border p-1 rounded w-full" onchange="agregarProducto(${p.id}, this.value)">
+              <option value="">Cantidad</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="Otro">Otra cantidad</option>
+            </select>
+          </div>
+        `;
+        contenedor.appendChild(div);
+      });
+    }
+
+    // Añade producto al carrito y guarda en localStorage
+    function agregarProducto(id, cantidad) {
+      if (!cantidad) return;
+      if (cantidad === 'Otro') {
+        cantidad = prompt('¿Cuántas unidades deseas?');
+        if (!cantidad || isNaN(cantidad) || cantidad <= 0) {
+          alert('Cantidad inválida');
+          return;
+        }
+      }
+      cantidad = parseInt(cantidad);
+      if (carrito[id]) {
+        carrito[id] += cantidad;
+      } else {
+        carrito[id] = cantidad;
+      }
+      guardarCarrito();
+      actualizarContador();
+      alert('Producto agregado al carrito');
+    }
+
+    // Renderiza los items dentro del carrito
+    function renderCarrito() {
+      const ul = document.getElementById('cart-items');
+      ul.innerHTML = '';
+      let total = 0;
+      for (const [id, qty] of Object.entries(carrito)) {
+        const producto = productosData.find(p => p.id == id);
+        if (!producto) continue;
+        const li = document.createElement('li');
+        li.textContent = `${producto.nombre} x ${qty} = $${producto.precio * qty} MXN`;
+        total += producto.precio * qty;
+        ul.appendChild(li);
+      }
+      document.getElementById('cart-total').textContent = `Total: $${total} MXN`;
+    }
+
+    // Muestra o oculta el carrito
+    function toggleCart(show) {
+      const cart = document.getElementById('cart');
+      if (show === undefined) {
+        show = cart.style.display === 'none' || cart.style.display === '';
+      }
+      cart.style.display = show ? 'block' : 'none';
+      if (show) {
+        renderCarrito();
+      }
+    }
+
+    // Carga las pestañas en la navegación y añade evento
+    function cargarTabs() {
+      const nav = document.querySelector('header nav');
+      tabs.forEach(tab => {
+        const a = document.createElement('a');
+        a.href = '#';
+        a.textContent = tab.label;
+        a.className = 'tab-button';
+        a.dataset.target = tab.id;
+        a.setAttribute('role', 'tab');
+        a.setAttribute('tabindex', '0');
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          mostrarSeccion(tab.id);
+        });
+        nav.appendChild(a);
+      });
+      // Activar primera pestaña
+      mostrarSeccion(tabs[0].id);
+    }
+
+    // Muestra la sección y activa la pestaña correspondiente
+    function mostrarSeccion(id) {
+      document.querySelectorAll('.seccion').forEach(sec => {
+        sec.classList.remove('active');
+        if (sec.id === id) sec.classList.add('active');
+      });
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.target === id);
+      });
+      // Si tienes algo que hacer al cambiar sección, agregar aquí
+    }
+
+    // Ocultar panel de bienvenida
     function ocultarPanel() {
-      document.getElementById('cover-panel').classList.add('hidden');
+      const panel = document.getElementById('cover-panel');
+      panel.classList.add('hidden');
     }
 
-    function mostrarSeccion(seccionId, btn) {
-      document.querySelectorAll('.seccion').forEach(s => s.classList.add('hidden'));
-      document.getElementById(seccionId).classList.remove('hidden');
-      document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    // Enviar formulario de contacto (simulación)
+    function enviarFormulario(event) {
+      event.preventDefault();
+      alert('Mensaje enviado. ¡Gracias por contactarnos!');
+      event.target.reset();
     }
 
-    function buscarProducto() {
-      alert('Buscando productos...');
-    }
+    // Eventos y carga inicial
+    window.addEventListener('DOMContentLoaded', () => {
+      cargarTabs();
+      renderProductos(productosData);
+      cargarCarrito();
+      actualizarContador();
 
-    function abrirCarrito() {
-      document.getElementById('cart-panel').classList.remove('translate-x-full');
-    }
+      // Mostrar carrito al dar clic en el botón
+      document.getElementById('cart-button').addEventListener('click', () => toggleCart());
 
-    function cerrarCarrito() {
-      document.getElementById('cart-panel').classList.add('translate-x-full');
-    }
+      // Ocultar carrito al cerrar
+      document.getElementById('close-cart').addEventListener('click', () => toggleCart(false));
 
-    let cartCount = 0;
-    function agregarProducto(nombre, cantidad) {
-      if (!cantidad || isNaN(cantidad)) return;
-      cartCount += parseInt(cantidad);
-      document.getElementById('cart-count').textContent = cartCount;
-      document.getElementById('empty-cart').style.display = 'none';
-      const item = document.createElement('div');
-      item.className = 'border-b pb-2';
-      item.textContent = `${cantidad} x ${nombre}`;
-      document.getElementById('cart-items').appendChild(item);
-    }
+      // Buscar productos con el input
+      document.getElementById('search').addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        const filtrados = productosData.filter(p => p.nombre.toLowerCase().includes(query) || p.descripcion.toLowerCase().includes(query));
+        renderProductos(filtrados);
+      });
+    });
   </script>
 </body>
 </html>
