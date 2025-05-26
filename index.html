@@ -195,12 +195,14 @@
       </div>
     </section>
 
-    <section id="infraestructura" class="seccion">
-      <h2 class="text-3xl font-bold mb-6">Infraestructura</h2>
-      <div class="bg-white p-6 rounded shadow">
-        <p>Contamos con plantas modernas equipadas con tecnología de punta para garantizar productos frescos y de alta calidad.</p>
-      </div>
-    </section>
+   <section id="infraestructura" class="seccion">
+  <h2 class="text-3xl font-bold mb-6">Infraestructura</h2>
+  <div class="bg-white p-6 rounded shadow">
+    <p>Contamos con plantas modernas equipadas con tecnología de punta para garantizar productos frescos y de alta calidad.</p>
+    <img src="images/infraestructura.jpg" alt="Infraestructura" class="mt-4 rounded" style="max-width: 100%; height: auto;">
+  </div>
+</section>
+
 
     <section id="logistica" class="seccion">
       <h2 class="text-3xl font-bold mb-6">Logística</h2>
@@ -219,69 +221,96 @@
     </section>
 
     <!-- NUEVA SECCIÓN: Diagrama de Producción -->
-    <section id="diagrama" class="seccion hidden">
-      <h2 class="text-3xl font-bold mb-6">Diagrama de Producción</h2>
-      <div class="bg-white p-6 rounded shadow max-w-4xl mx-auto text-left space-y-6">
-        <div>
-          <h3 class="text-xl font-semibold mb-2">1. Recepción de Materia Prima</h3>
-          <ul class="list-disc list-inside">
-            <li>Maíz</li>
-            <li>Agua</li>
-            <li>Sal</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2">2. Preparación de la Masa</h3>
-          <ul class="list-disc list-inside">
-            <li>Cocción del maíz (Nixtamalización)</li>
-            <li>Molienda del maíz</li>
-            <li>Mezcla con agua y sal</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2">3. Formado de Tortillas</h3>
-          <ul class="list-disc list-inside">
-            <li>División de la masa en bolas</li>
-            <li>Aplanado de las bolas en forma de tortilla</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2">4. Cocción de Tortillas</h3>
-          <ul class="list-disc list-inside">
-            <li>Cocción en comal</li>
-            <li>Enfriamiento</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2">5. Producción de Totopos</h3>
-          <ul class="list-disc list-inside">
-            <li>Corte de tortillas en triángulos</li>
-            <li>Freír o hornear los triángulos</li>
-            <li>Enfriamiento</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2">6. Producción de Tostadas</h3>
-          <ul class="list-disc list-inside">
-            <li>Freír tortillas enteras</li>
-            <li>Enfriamiento</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2">7. Empaque</h3>
-          <ul class="list-disc list-inside">
-            <li>Empacado de tortillas, totopos y tostadas</li>
-            <li>Etiquetado</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2">8. Distribución</h3>
-          <ul class="list-disc list-inside">
-            <li>Envío a puntos de venta</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+<section id="diagrama" class="seccion">
+  <h2 class="text-3xl font-bold mb-6">Diagrama de Producción</h2>
+  <div class="diagrama-flujo flex flex-wrap justify-center gap-6 max-w-4xl mx-auto bg-white p-6 rounded shadow text-center">
+    <div class="paso p-4 border rounded shadow-md w-48">
+      <strong>1. Recepción de Materia Prima</strong>
+      <ul class="list-disc list-inside mt-2 text-left">
+        <li>Maíz</li>
+        <li>Agua</li>
+        <li>Sal</li>
+      </ul>
+    </div>
+    <div class="flecha self-center text-4xl text-green-700">→</div>
+    <div class="paso p-4 border rounded shadow-md w-48">
+      <strong>2. Preparación de la Masa</strong>
+      <ul class="list-disc list-inside mt-2 text-left">
+        <li>Cocción del maíz (Nixtamalización)</li>
+        <li>Molienda del maíz</li>
+        <li>Mezcla con agua y sal</li>
+      </ul>
+    </div>
+    <div class="flecha self-center text-4xl text-green-700">→</div>
+    <div class="paso p-4 border rounded shadow-md w-48">
+      <strong>3. Formado de Tortillas</strong>
+      <ul class="list-disc list-inside mt-2 text-left">
+        <li>División de la masa en bolas</li>
+        <li>Aplanado de las bolas en forma de tortilla</li>
+      </ul>
+    </div>
+    <div class="flecha self-center text-4xl text-green-700">→</div>
+    <div class="paso p-4 border rounded shadow-md w-48">
+      <strong>4. Cocción de Tortillas</strong>
+      <ul class="list-disc list-inside mt-2 text-left">
+        <li>Cocción en comal</li>
+        <li>Enfriamiento</li>
+      </ul>
+    </div>
+    <div class="flecha self-center text-4xl text-green-700">→</div>
+    <div class="paso p-4 border rounded shadow-md w-48">
+      <strong>5. Producción de Totopos</strong>
+      <ul class="list-disc list-inside mt-2 text-left">
+        <li>Corte de tortillas en triángulos</li>
+        <li>Freír o hornear los triángulos</li>
+        <li>Enfriamiento</li>
+      </ul>
+    </div>
+    <div class="flecha self-center text-4xl text-green-700">→</div>
+    <div class="paso p-4 border rounded shadow-md w-48">
+      <strong>6. Empacado</strong>
+      <ul class="list-disc list-inside mt-2 text-left">
+        <li>Colocación de totopos en bolsas</li>
+        <li>Sellado de bolsas</li>
+        <li>Etiquetado</li>
+      </ul>
+    </div>
+    <div class="flecha self-center text-4xl text-green-700">→</div>
+    <div class="paso p-4 border rounded shadow-md w-48">
+      <strong>7. Almacenamiento</strong>
+      <ul class="list-disc list-inside mt-2 text-left">
+        <li>Ubicación en almacén</li>
+        <li>Control de temperatura y humedad</li>
+      </ul>
+    </div>
+    <div class="flecha self-center text-4xl text-green-700">→</div>
+    <div class="paso p-4 border rounded shadow-md w-48">
+      <strong>8. Distribución</strong>
+      <ul class="list-disc list-inside mt-2 text-left">
+        <li>Preparación de pedidos</li>
+        <li>Carga en vehículos de distribución</li>
+        <li>Entrega a puntos de venta</li>
+      </ul>
+    </div>
+    <div class="flecha self-center text-4xl text-green-700">→</div>
+    <div class="paso p-4 border rounded shadow-md w-48">
+      <strong>9. Venta al consumidor</strong>
+      <ul class="list-disc list-inside mt-2 text-left">
+        <li>Puntos de venta físicos</li>
+        <li>Venta en línea</li>
+      </ul>
+    </div>
+    <div class="flecha self-center text-4xl text-green-700">→</div>
+    <div class="paso p-4 border rounded shadow-md w-48">
+      <strong>10. Retroalimentación y mejora</strong>
+      <ul class="list-disc list-inside mt-2 text-left">
+        <li>Recepción de comentarios</li>
+        <li>Implementación de mejoras</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 
     <section id="areas" class="seccion">
       <h2 class="text-3xl font-bold mb-6">Áreas Funcionales</h2>
